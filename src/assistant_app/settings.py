@@ -74,13 +74,13 @@ WSGI_APPLICATION = 'assistant_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'personal_assistant',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DATABASE_NAME", default="assistant_db"),
+        "USER": env("DATABASE_USER", default="admin"),
+        "PASSWORD": env("DATABASE_PASSWORD", default="admin"),
+        "HOST": env("DATABASE_HOST", default="localhost"),
+        "PORT": env("DATABASE_PORT", default="5432"),
     }
 }
 
@@ -126,7 +126,6 @@ DEFAULT_FROM_EMAIL = "no-reply@example.com"  # Адреса відправник
 #         'rest_framework.authentication.BasicAuthentication',
 #     ),
 # }
-
 
 
 # Password validation
