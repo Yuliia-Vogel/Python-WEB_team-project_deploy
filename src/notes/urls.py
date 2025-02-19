@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     NoteListView, NoteDetailView, NoteCreateView, NoteUpdateView, NoteDeleteView,
-    TagListView, TagCreateView
+    TagListView, TagCreateView, TagDeleteView
 )
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:pk>/delete/', NoteDeleteView.as_view(), name='note-delete'),  # 📌 Видалення
     path('tags/', TagListView.as_view(), name='tag-list'),  # 📌 Всі теги
     path('tags/create/', TagCreateView.as_view(), name='tag-create'),  # 📌 Додавання тегу
+    path("tags/<int:pk>/delete/", TagDeleteView.as_view(), name="tag-delete"), # 📌Видалення тегу
 ]
