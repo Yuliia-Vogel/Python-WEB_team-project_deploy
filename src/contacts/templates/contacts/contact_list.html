@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Contact List</h2>
+    <h2>Контакти</h2>
     <a href="{% url 'contact-create' %}" class="btn btn-primary">Додати контакт</a>
     <ul class="list-group mt-3">
         {% for contact in contacts %}
