@@ -5,7 +5,7 @@ description = ""
 authors = ["KyryloDolia <fr1ghtn1ght2101@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{ include = "assistant_app", from = "src" }]
+packages = [{ include = "*", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.12"
