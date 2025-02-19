@@ -25,5 +25,3 @@ urlpatterns = [
     path("notes/", include("notes.urls")),  # Підключаємо маршрути нотаток
     path("", home, name="home"),  # Головна сторінка
 ]
-
-
