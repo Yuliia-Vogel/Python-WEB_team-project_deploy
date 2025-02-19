@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Нотатки</h2>
+  <a href="{% url 'note-create' %}" class="btn btn-primary">Додати нотатку</a>
+  <ul class="list-group mt-3">
+    {% for note in notes %}
+      <li class="list-group-item">
+        <a href="{% url 'note-detail' note.pk %}">{{ note.title }}</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Немає нотаток.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

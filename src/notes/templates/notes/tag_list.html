@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Теги</h2>
+  <a href="{% url 'tag-create' %}" class="btn btn-primary">Додати тег</a>
+  <ul class="list-group mt-3">
+    {% for tag in tags %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ tag.name }}
+        <a href="{% url 'tag-delete' tag.pk %}" class="btn btn-danger btn-sm">Видалити</a>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Немає тегів.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
