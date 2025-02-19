@@ -48,3 +48,9 @@ class TagCreateView(CreateView):
     form_class = TagForm
     template_name = 'notes/tag_form.html'
     success_url = reverse_lazy('tag-list')
+    
+# 📌 Видалення тегу
+class TagDeleteView(DeleteView):
+    model = Tag
+    template_name = "notes/tag_confirm_delete.html"
+    success_url = reverse_lazy("tag-list")
