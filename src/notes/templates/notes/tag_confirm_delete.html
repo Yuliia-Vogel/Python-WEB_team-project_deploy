@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Видалити тег "{{ tag.name }}"?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Так, видалити</button>
+    <a href="{% url 'tag-list' %}" class="btn btn-secondary">Скасувати</a>
+  </form>
+{% endblock %}
