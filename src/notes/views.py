@@ -9,6 +9,13 @@ class NoteListView(ListView):
     model = Note
     template_name = 'notes/note_list.html'
     context_object_name = 'notes'
+    
+    def get_queryset(self):
+        queryset = Note.objects.filter(user=self.request.user)  # Тільки нотатки поточного користувача
+        tag = self.request.GET.get("tag")  # Отримуємо тег з параметрів URL
+        if tag:
+            queryset = queryset.filter(tags__name=tag)  # Фільтруємо за тегом
+        return queryset
 
 # 📌 Детальний перегляд нотатки
 class NoteDetailView(DetailView):
