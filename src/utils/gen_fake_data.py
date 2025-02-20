@@ -22,7 +22,7 @@ def create_fake_contacts(n=50):
             first_name=fake.first_name(),
             last_name=fake.last_name(),
             address=fake.address(),
-            phone=fake.phone_number(),
+            phone=fake.phone_number()[:20],  # беремо лише 20 символів, якщо їх більше
             email=fake.email(),
             birthday=fake.date_of_birth(minimum_age=18, maximum_age=80)
         )
