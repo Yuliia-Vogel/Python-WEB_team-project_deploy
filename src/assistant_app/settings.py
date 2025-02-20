@@ -19,13 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
 
-print(os.getenv('DATABASE_NAME'))
-print(os.getenv('DATABASE_USER'))
-print(os.getenv('DATABASE_PASSWORD'))
-print(os.getenv('DATABASE_HOST'))
-print(os.getenv('DATABASE_PORT'))
-print(os.getenv("SECRET_KEY"))
-
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = os.getenv("SECRET_KEY")
