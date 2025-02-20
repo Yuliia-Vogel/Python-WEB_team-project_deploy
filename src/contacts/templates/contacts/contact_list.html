@@ -2,11 +2,11 @@
 
 {% block content %}
     <h2>Контакти</h2>
-    <a href="{% url 'contact-create' %}" class="btn btn-primary">Додати контакт</a>
+    <a href="{% url 'contacts:contact-create' %}" class="btn btn-primary">Додати контакт</a>
     <ul class="list-group mt-3">
         {% for contact in contacts %}
             <li class="list-group-item">
-                <a href="{% url 'contact-detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a>
+                <a href="{% url 'contacts:contact-detail' contact.pk %}">{{ contact.first_name }} {{ contact.last_name }}</a>
             </li>
         {% empty %}
             <li class="list-group-item">Немає контактів.</li>

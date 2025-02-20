@@ -1,68 +1,72 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note, Tag
 from .forms import NoteForm, TagForm
 
 # 📌 Вивід усіх нотаток
-class NoteListView(ListView):
+class NoteListView(LoginRequiredMixin, ListView):
     model = Note
     template_name = 'notes/note_list.html'
     context_object_name = 'notes'
-    
+
     def get_queryset(self):
         queryset = Note.objects.filter(user=self.request.user)  # Тільки нотатки поточного користувача
         tag = self.request.GET.get("tag")  # Отримуємо тег з параметрів URL
         if tag:
             queryset = queryset.filter(tags__name=tag)  # Фільтруємо за тегом
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tags"] = Tag.objects.all()  # Додаємо всі теги в шаблон
         return context
 
 # 📌 Детальний перегляд нотатки
-class NoteDetailView(DetailView):
+class NoteDetailView(LoginRequiredMixin, DetailView):
     model = Note
     template_name = 'notes/note_detail.html'
     context_object_name = 'note'
 
 # 📌 Додавання нової нотатки
-class NoteCreateView(CreateView):
+class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes/note_form.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 
-# 📌 Редагування нотатки
-class NoteUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # ✅ Додаємо користувача перед збереженням
+        return super().form_valid(form)
+
+# 📌 Оновлення нотатки
+class NoteUpdateView(LoginRequiredMixin, UpdateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes/note_form.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 
-# 📌 Видалення нотатки
-class NoteDeleteView(DeleteView):
+class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = 'notes/note_confirm_delete.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 
 # 📌 Вивід усіх тегів
-class TagListView(ListView):
+class TagListView(LoginRequiredMixin, ListView):
     model = Tag
     template_name = 'notes/tag_list.html'
     context_object_name = 'tags'
 
 # 📌 Додавання тегу
-class TagCreateView(CreateView):
+class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
     form_class = TagForm
     template_name = 'notes/tag_form.html'
-    success_url = reverse_lazy('tag-list')
-    
+    success_url = reverse_lazy('notes:tag-list')
+
 # 📌 Видалення тегу
-class TagDeleteView(DeleteView):
+class TagDeleteView(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = "notes/tag_confirm_delete.html"
-    success_url = reverse_lazy("tag-list")
+    success_url = reverse_lazy("notes:tag-list")

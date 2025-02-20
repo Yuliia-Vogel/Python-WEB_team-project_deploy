@@ -2,17 +2,19 @@
 
 {% block content %}
   <h2>Нотатки</h2>
-  <a href="{% url 'note-create' %}" class="btn btn-primary">Додати нотатку</a>
+  <a href="{% url 'notes:note-create' %}" class="btn btn-primary">Додати нотатку</a>
+  
   <ul class="list-group mt-3">
     {% for note in notes %}
       <li class="list-group-item">
-        <a href="{% url 'note-detail' note.pk %}">{{ note.title }}</a>
+        <a href="{% url 'notes:note-detail' note.pk %}">{{ note.title }}</a>
       </li>
     {% empty %}
       <li class="list-group-item">Немає нотаток.</li>
     {% endfor %}
   </ul>
-  <form method="GET" action="{% url 'notes:note_list' %}">
+
+  <form method="GET" action="{% url 'notes:note-list' %}">
     <label for="tag">Фільтр за тегом:</label>
     <select name="tag" id="tag" onchange="this.form.submit()">
         <option value="">Всі теги</option>
@@ -22,5 +24,5 @@
             </option>
         {% endfor %}
     </select>
-</form>
+  </form>
 {% endblock %}
