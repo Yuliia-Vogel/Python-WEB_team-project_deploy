@@ -54,3 +54,14 @@ python src/manage.py runserver
 
 All the data will be saved in the PostgreSQL database inside the docker-container.
 
+9) If you need some info for demo, you can create 50 fake contacts and 50 fake notes using Faker package.
+First, register at least one user, and then run the command:
+```
+poetry run python src/utils/gen_fake_data.py
+```
+
+Finally, to stop the server, go to terminal where server is running, and press Ctrl+C.
+The server will be stopped.
+
+
+
