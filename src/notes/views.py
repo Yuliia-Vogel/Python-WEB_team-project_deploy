@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Note, Tag
 from .forms import NoteForm, TagForm
+from django.db.models import Q
 
 # 📌 Вивід усіх нотаток
 class NoteListView(LoginRequiredMixin, ListView):
@@ -12,15 +13,21 @@ class NoteListView(LoginRequiredMixin, ListView):
     context_object_name = 'notes'
 
     def get_queryset(self):
-        queryset = Note.objects.filter(user=self.request.user)  # Тільки нотатки поточного користувача
-        tag = self.request.GET.get("tag")  # Отримуємо тег з параметрів URL
+        queryset = Note.objects.filter(user=self.request.user)
+        tag = self.request.GET.get("tag")  # Фільтр за тегом
+        search_query = self.request.GET.get("q")  # Пошуковий запит
+
         if tag:
-            queryset = queryset.filter(tags__name=tag)  # Фільтруємо за тегом
+            queryset = queryset.filter(tags__name=tag)
+        if search_query:
+            queryset = queryset.filter(Q(title__icontains=search_query) | Q(content__icontains=search_query))
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()  # Додаємо всі теги в шаблон
+        context["tags"] = Tag.objects.all()
+        context["search_query"] = self.request.GET.get("q", "")  # Передача пошуку в шаблон
         return context
 
 # 📌 Детальний перегляд нотатки

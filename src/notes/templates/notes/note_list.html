@@ -2,8 +2,17 @@
 
 {% block content %}
   <h2>Нотатки</h2>
+
+  <!-- Форма пошуку -->
+  <form method="GET" action="{% url 'notes:note-list' %}" class="mb-3">
+    <input type="text" name="q" placeholder="Пошук нотаток..." value="{{ search_query }}" class="form-control">
+    <button type="submit" class="btn btn-primary mt-2">Шукати</button>
+  </form>
+
+  <!-- Кнопка для додавання нової нотатки -->
   <a href="{% url 'notes:note-create' %}" class="btn btn-primary">Додати нотатку</a>
-  
+
+  <!-- Список нотаток -->
   <ul class="list-group mt-3">
     {% for note in notes %}
       <li class="list-group-item">
@@ -14,6 +23,7 @@
     {% endfor %}
   </ul>
 
+  <!-- Фільтр за тегами -->
   <form method="GET" action="{% url 'notes:note-list' %}">
     <label for="tag">Фільтр за тегом:</label>
     <select name="tag" id="tag" onchange="this.form.submit()">
