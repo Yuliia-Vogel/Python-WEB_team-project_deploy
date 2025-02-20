@@ -16,6 +16,11 @@ class NoteListView(ListView):
         if tag:
             queryset = queryset.filter(tags__name=tag)  # Фільтруємо за тегом
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()  # Додаємо всі теги в шаблон
+        return context
 
 # 📌 Детальний перегляд нотатки
 class NoteDetailView(DetailView):
