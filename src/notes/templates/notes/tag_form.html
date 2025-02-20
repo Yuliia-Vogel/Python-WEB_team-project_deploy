@@ -6,6 +6,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-success">Зберегти</button>
-    <a href="{% url 'tag-list' %}" class="btn btn-secondary">Назад</a>
+    <a href="{% url 'notes:tag-list' %}" class="btn btn-secondary">Назад</a>
   </form>
 {% endblock %}
