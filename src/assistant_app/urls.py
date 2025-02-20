@@ -23,5 +23,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/users/", include("users.urls")),  # Підключаємо маршрути користувачів
     path("notes/", include("notes.urls")),  # Підключаємо маршрути нотаток
+    path("contacts/", include("contacts.urls")),  # Підключаємо маршрути контактів
     path("", home, name="home"),  # Головна сторінка
 ]
