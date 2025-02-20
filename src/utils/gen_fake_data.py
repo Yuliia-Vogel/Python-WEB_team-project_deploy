@@ -3,11 +3,15 @@ import django
 import random
 from faker import Faker
 from django.contrib.auth import get_user_model
-from src.contacts.models import Contact
-from src.notes.models import Note, Tag
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.assistant_app.settings")
-django.setup()
+# Встановлюємо Django оточення
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "assistant_app.settings")
+django.setup()  # Ініціалізація Django
+
+
+# Тепер можна імпортувати моделі
+from contacts.models import Contact
+from notes.models import Note, Tag
 
 fake = Faker()
 User = get_user_model()
