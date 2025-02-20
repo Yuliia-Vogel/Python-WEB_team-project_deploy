@@ -46,4 +46,11 @@ You'll receive your unique key, please add it as SECRET_KEY in the .env file.
 ```
 poetry run python src/manage.py migrate
 ```
-7) ...
+7) Run the server:
+```
+python src/manage.py runserver
+```
+8) Follow the link http://127.0.0.1:8000/ and start the work with Personal Assistant in web-browser.
+
+All the data will be saved in the PostgreSQL database inside the docker-container.
+
