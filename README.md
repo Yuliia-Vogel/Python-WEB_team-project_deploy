@@ -1,26 +1,35 @@
 # Python-WEB_team-project2
 The final team project for Python WEB at GO.IT school
 
-Щоб в вас працювало треба:
--  стянути до себе, бажано через SSH
--  в корені проекту, де знаходиться pyproject.toml, в терміналі ввести poetry install. Має встановити всі залежності.
-Не забудьте увійти в створене оточення - poetry shell.
-Також треба додати це оточення в VSCode, щоб він бачив встановлені бібліотеки. З цим можу окремо допомогти якщо виникнуть проблеми.
--  створити .env файл в корені проекту з ось такими речами
+1) Open your VSCode or PyCharm and clone this repository.
 
-SECRET_KEY= 
 
-DATABASE_NAME=
-DATABASE_USER=
-DATABASE_PASSWORD=
-DATABASE_HOST=
-DATABASE_PORT=
-secret_key в кожного унікальний в джанго, тому його треба в себе створити і вставити в .env, для цього в папці utils є скрипт, 
-який виводить ключ в терміналі, просто вводимо це:
+2) Create database Postgres in Docker. 
+- open Docker desktop
+- open Command line 
+- and print command:
+docker run --name web_progect_db -p 5432:5432 -e POSTGRES_PASSWORD=web_progect_db -d postgres
+
+3)  Create and activate virtual environment (venv). 
+-To create venv write the command in terminal of your VSCode:
+python -m venv venv
+-To activate venv write command in terminal (Windows):
+venv\Scripts\Activate
+If you use cmd, write command:
+venv\Scripts\activate.bat
+If you use poetry, write:
+poetry shell
+
+4) Install all dependencies for the application:
+pip install poetry
+poetry install
+
+5) Create .env file in the root folder. As an example there is a .env.example file in root folder.
+-- To have a secret_key, please run command:
 poetry run python src/utils/gen_secret_key.py
-Копіюємо ключ і вставляємо в .env
+You'll receive your unique key, please add it as SECRET_KEY in the .env file.
 
-DATABASE_NAME, це ім'я бази даних, яку ми маємо створити в Postgres у себе локально, який в нас має запускатися з Docker. 
-Якщо зашити ім'я яке було в минулих проектах, то все перемішається.
+6) Apply migration of data to database:
+poetry run python src/manage.py migrate
 
--  виконуємо міграції з увімкненим докер контейнером py manage.py makemigrations
+7) ...
