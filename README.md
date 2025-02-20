@@ -7,7 +7,9 @@ The final team project for Python WEB at GO.IT school
 - open Docker desktop
 - open Command line 
 - and print command:
+```
 docker run --name web_progect_db -p 5432:5432 -e POSTGRES_PASSWORD=web_progect_db -d postgres
+```
 
 3)  Create and activate virtual environment (venv). 
 - To create venv write the command in terminal of your VSCode:
