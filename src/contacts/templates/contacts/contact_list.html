@@ -2,7 +2,11 @@
 
 {% block content %}
     <h2>Контакти</h2>
-    <a href="{% url 'contacts:contact-create' %}" class="btn btn-primary">Додати контакт</a>
+    <form method="GET" action="{% url 'contacts:contact-list' %}">
+        <input type="text" class="form-control" style="margin: 12px 0" name="query" placeholder="Пошук контактів..." value="{{ request.GET.query }}">
+        <button type="submit" class="btn btn-primary mt-2" style="margin-bottom: 12px">Пошук</button>
+    </form>
+    <a href="{% url 'contacts:contact-create' %}" class="btn btn-success">Додати контакт</a>
     <ul class="list-group mt-3">
         {% for contact in contacts %}
             <li class="list-group-item">
