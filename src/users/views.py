@@ -243,7 +243,7 @@ def upload_file(request):
             user_file = form.save(commit=False)
             user_file.user = request.user  # Прив'язуємо файл до користувача
             user_file.save()
-            return redirect('file_list')  # Після завантаження переходимо до списку файлів
+            return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
     else:
         form = UserFileForm()
 
