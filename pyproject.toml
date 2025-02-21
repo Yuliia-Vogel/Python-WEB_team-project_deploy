@@ -17,6 +17,7 @@ psycopg2 = "^2.9.10"
 djangorestframework = "^3.15.2"
 djangorestframework-simplejwt = "^5.4.0"
 faker = "^36.1.1"
+dotenv = "^0.9.9"
 
 [build-system]
 requires = ["poetry-core"]
