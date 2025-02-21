@@ -31,4 +31,4 @@ class LoginSerializer(serializers.Serializer):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             }
-        raise serializers.ValidationError("Invalid credentials")
+        raise serializers.ValidationError("Невірні облікові дані")
