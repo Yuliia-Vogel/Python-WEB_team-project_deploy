@@ -2,6 +2,7 @@ from django.urls import path
 from .views import (
     RegisterView, LoginView, ChangePasswordView,
     PasswordResetRequestView, PasswordResetConfirmView,
+    upload_file, file_list,
     register_page, login_page, registration_success_view,
     password_reset_form_view, password_reset_done_view, 
     password_reset_confirm_view, logout_view, password_reset_sent_view, password_reset_complete_view
@@ -29,6 +30,10 @@ urlpatterns = [
     path("password-reset-done/", password_reset_done_view, name="password_reset_done"),
     path("password-reset-confirm-page/", password_reset_confirm_view, name="password_reset_confirm_page"),
     path("password-reset-sent/", password_reset_sent_view, name="password_reset_sent"),
+  
+    # Завантаження файлів на Claudinary
+    path("upload/", upload_file, name="upload_file"),
+    path("files/", file_list, name="file_list"),
 
     # Вихід з системи
     path("logout/", logout_view, name="logout"),
