@@ -1,13 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.db.models import Q
 from .models import Note, Tag
 from .forms import NoteForm, TagForm
-<<<<<<< Updated upstream
-=======
 from django.contrib.auth.mixins import LoginRequiredMixin
->>>>>>> Stashed changes
 
 # 📌 Вивід усіх нотаток лише для авторизованого користувача
 class NoteListView(LoginRequiredMixin, ListView):
@@ -15,12 +12,9 @@ class NoteListView(LoginRequiredMixin, ListView):
     template_name = 'notes/note_list.html'
     context_object_name = 'notes'
 
-<<<<<<< Updated upstream
-=======
     def get_queryset(self):
         tag = self.request.GET.get("tag")  # Фільтр за тегом
         search_query = self.request.GET.get("q")  # Пошуковий запит
-
         queryset = Note.objects.filter(user=self.request.user)  # Нотатки тільки авторизованого користувача
 
         if tag:
@@ -35,8 +29,7 @@ class NoteListView(LoginRequiredMixin, ListView):
         context["tags"] = Tag.objects.all()
         context["search_query"] = self.request.GET.get("q", "")  # Передача пошуку в шаблон
         return context
-
->>>>>>> Stashed changes
+      
 # 📌 Детальний перегляд нотатки
 class NoteDetailView(LoginRequiredMixin, DetailView):
     model = Note
@@ -51,23 +44,18 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes/note_form.html'
-    success_url = reverse_lazy('note-list')
-
-<<<<<<< Updated upstream
-# 📌 Редагування нотатки
-class NoteUpdateView(UpdateView):
-=======
+    success_url = reverse_lazy('notes:note-list')
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 # 📌 Оновлення нотатки
 class NoteUpdateView(LoginRequiredMixin, UpdateView):
->>>>>>> Stashed changes
     model = Note
     form_class = NoteForm
     template_name = 'notes/note_form.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 
     def get_queryset(self):
         return Note.objects.filter(user=self.request.user)
@@ -76,7 +64,7 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = 'notes/note_confirm_delete.html'
-    success_url = reverse_lazy('note-list')
+    success_url = reverse_lazy('notes:note-list')
 
     def get_queryset(self):
         return Note.objects.filter(user=self.request.user)
@@ -92,14 +80,10 @@ class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
     form_class = TagForm
     template_name = 'notes/tag_form.html'
-    success_url = reverse_lazy('tag-list')
-    
+    success_url = reverse_lazy('notes:tag-list')
+
 # 📌 Видалення тегу
 class TagDeleteView(LoginRequiredMixin, DeleteView):
     model = Tag
     template_name = "notes/tag_confirm_delete.html"
-<<<<<<< Updated upstream
-    success_url = reverse_lazy("tag-list")
-=======
     success_url = reverse_lazy("notes:tag-list")
->>>>>>> Stashed changes

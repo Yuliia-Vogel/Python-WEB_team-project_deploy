@@ -1,25 +1,19 @@
 import environ
-from pathlib import Path
-<<<<<<< Updated upstream
+
+import os
 from datetime import timedelta
-=======
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Завантаження змінних оточення
+# load environmental variables:
 load_dotenv()
->>>>>>> Stashed changes
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
 
-<<<<<<< Updated upstream
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY", default="your-default-secret-key")
-=======
 SECRET_KEY = os.getenv("SECRET_KEY")
->>>>>>> Stashed changes
 
 DEBUG = True
 
@@ -69,20 +63,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'assistant_app.wsgi.application'
 
-<<<<<<< Updated upstream
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'personal_assistant',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-=======
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -91,7 +71,6 @@ DATABASES = {
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_HOST'),
         'PORT': os.getenv('DATABASE_PORT'),
->>>>>>> Stashed changes
     }
 }
 
@@ -118,7 +97,6 @@ DEFAULT_FROM_EMAIL = "no-reply@example.com"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-<<<<<<< Updated upstream
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")  # Зчитуємо з .env
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")  # Зчитуємо з .env
 DEFAULT_FROM_EMAIL = "no-reply@example.com"  # Адреса відправника (фіктивна для тестування)
@@ -131,16 +109,6 @@ DEFAULT_FROM_EMAIL = "no-reply@example.com"  # Адреса відправник
 #         'rest_framework.authentication.BasicAuthentication',
 #     ),
 # }
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-=======
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = "no-reply@example.com"
->>>>>>> Stashed changes
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

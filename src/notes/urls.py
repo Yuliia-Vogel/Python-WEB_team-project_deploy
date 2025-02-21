@@ -4,6 +4,8 @@ from .views import (
     TagListView, TagCreateView, TagDeleteView
 )
 
+app_name = "notes"
+
 urlpatterns = [
     path('', NoteListView.as_view(), name='note-list'),  # 📌 Всі нотатки
     path('<int:pk>/', NoteDetailView.as_view(), name='note-detail'),  # 📌 Окрема нотатка
