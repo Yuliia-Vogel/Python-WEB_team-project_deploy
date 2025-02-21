@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Your Uploaded Files</h2>
+  <ul>
+    {% for file in files %}
+      <li>
+        <a href="{{ file.file.url }}" target="_blank">{{ file.file.url }}</a> (uploaded at {{ file.uploaded_at }})
+      </li>
+    {% empty %}
+      <li>No files uploaded yet.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'users:upload_file' %}">Upload new file</a>
+{% endblock %}

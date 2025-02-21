@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Теги</h2>
+  <h2>Теги ({{ tags|length }})</h2>
   <a href="{% url 'notes:tag-create' %}" class="btn btn-primary">Додати тег</a>
   <ul class="list-group mt-3">
     {% for tag in tags %}
