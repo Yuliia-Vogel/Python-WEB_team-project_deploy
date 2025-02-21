@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Нотатки</h2>
+  <h2>Нотатки ({{ notes|length }})</h2>
 
   <!-- Форма пошуку -->
   <form method="GET" action="{% url 'notes:note-list' %}" class="mb-3">

@@ -2,5 +2,7 @@
 
 {% block content %}
   <h2>Ласкаво просимо до Personal Assistant!</h2>
-  <p>Оберіть функцію у меню.</p>
+  {% if user.is_authenticated %}
+      <p>Оберіть функцію у меню.</p>
+  {% endif %}
 {% endblock %}

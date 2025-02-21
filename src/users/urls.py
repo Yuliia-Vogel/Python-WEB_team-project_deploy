@@ -1,18 +1,40 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
 from .views import (
     RegisterView, LoginView, ChangePasswordView,
     PasswordResetRequestView, PasswordResetConfirmView,
-    upload_file, file_list
+    upload_file, file_list,
+    register_page, login_page, registration_success_view,
+    password_reset_form_view, password_reset_done_view, 
+    password_reset_confirm_view, logout_view, password_reset_sent_view, password_reset_complete_view
 )
 
 urlpatterns = [
+    # API маршрути
     path("register/", RegisterView.as_view(), name="register"),
-    path("login/", LoginView.as_view(), name="login"),
+    path("login/", login_page, name="login-page"),
     path("change-password/", ChangePasswordView.as_view(), name="change_password"),
     path("password-reset/", PasswordResetRequestView.as_view(), name="password_reset"),
-    path("password-reset-confirm/<uidb64>/<token>/", PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("password-reset-sent/", password_reset_sent_view, name="password_reset_sent"),
+    path("password-reset-confirm/<uidb64>/<token>/", password_reset_confirm_view, name="password_reset_confirm"),
+    path("password-reset-complete/", password_reset_complete_view, name="password_reset_complete"),
+
+    # HTML сторінки
+    path("register-page/", register_page, name="register_page"),
+    path("login-page/", login_page, name="login_page"),
+    path("logout/", logout_view, name="logout"),
+    path("password-reset-form/", password_reset_form_view, name="password_reset_form"),
+    path("registration-success/", registration_success_view, name="registration_success"),
+
+    # Сторінки для відновлення пароля
+    path("password-reset-form/", password_reset_form_view, name="password_reset_form"),
+    path("password-reset-done/", password_reset_done_view, name="password_reset_done"),
+    path("password-reset-confirm-page/", password_reset_confirm_view, name="password_reset_confirm_page"),
+    path("password-reset-sent/", password_reset_sent_view, name="password_reset_sent"),
+  
+    # Завантаження файлів на Claudinary
     path("upload/", upload_file, name="upload_file"),
     path("files/", file_list, name="file_list"),
+
+    # Вихід з системи
+    path("logout/", logout_view, name="logout"),
 ]

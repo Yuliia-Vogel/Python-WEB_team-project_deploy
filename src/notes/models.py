@@ -1,5 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.conf import settings
+
+User = get_user_model()
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -8,7 +11,7 @@ class Tag(models.Model):
         return self.name
 
 class Note(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Прив'язка до користувача
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
     title = models.CharField(max_length=200)
     content = models.TextField()
     tags = models.ManyToManyField("Tag", blank=True)
