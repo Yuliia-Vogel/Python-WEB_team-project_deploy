@@ -18,8 +18,9 @@ from rest_framework import generics, status, permissions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from .forms import UserFileForm
-from .models import UserFile, CustomUser
+# from .forms import UserFileForm
+# from .models import UserFile, CustomUser
+from .models import CustomUser
 from .serializers import RegisterSerializer, LoginSerializer
 
 
@@ -220,23 +221,23 @@ class PasswordResetConfirmView(APIView):
         return Response({"message": "Password has been reset successfully!"}, status=status.HTTP_200_OK)
 
 
-@login_required
-def upload_file(request):
-    if request.method == "POST":
-        form = UserFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            user_file = form.save(commit=False)
-            user_file.user = request.user  # Прив'язуємо файл до користувача
-            user_file.save()
-            return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
-    else:
-        form = UserFileForm()
+# @login_required
+# def upload_file(request):
+#     if request.method == "POST":
+#         form = UserFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             user_file = form.save(commit=False)
+#             user_file.user = request.user  # Прив'язуємо файл до користувача
+#             user_file.save()
+#             return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
+#     else:
+#         form = UserFileForm()
 
-    return render(request, "users/upload_file.html", {"form": form})
+#     return render(request, "users/upload_file.html", {"form": form})
 
-@login_required
-def file_list(request):
-    files = UserFile.objects.filter(user=request.user)
-    return render(request, "users/file_list.html", {"files": files})
+# @login_required
+# def file_list(request):
+#     files = UserFile.objects.filter(user=request.user)
+#     return render(request, "users/file_list.html", {"files": files})
   
-#         return redirect("password_reset_complete")
+# #         return redirect("password_reset_complete")

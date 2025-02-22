@@ -9,8 +9,8 @@
     <header>
         <h1>Welcome to My Django App</h1>
         <nav>
-            <a href="{% url 'file_list' %}">My Files</a> |
-            <a href="{% url 'upload_file' %}">Upload File</a> |
+            <a href="{% url 'files:file_list' %}">My Files</a> |
+            <a href="{% url 'files:upload_file' %}">Upload File</a> |
             <a href="{% url 'admin:index' %}">Admin</a>
         </nav>
         <hr>
