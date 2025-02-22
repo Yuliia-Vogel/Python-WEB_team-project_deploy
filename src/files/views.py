@@ -5,26 +5,6 @@ from .forms import UploadFileForm
 from .models import UploadedFile
 from .serializers import UploadedFileSerializer
 
-# class UploadedFileCreateView(generics.CreateAPIView):
-#     queryset = UploadedFile.objects.all()
-#     serializer_class = UploadedFileSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
-
-
-# @login_required
-# def upload_file(request):
-#     if request.method == "POST":
-#         form = UserFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             user_file = form.save(commit=False)
-#             user_file.user = request.user  # Прив'язуємо файл до користувача
-#             user_file.save()
-#             return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
-
-
 
 @login_required
 def upload_file(request):
