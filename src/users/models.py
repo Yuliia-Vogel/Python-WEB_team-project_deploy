@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db import models
-from cloudinary.models import CloudinaryField
+# from cloudinary.models import CloudinaryField
 from django.conf import settings
 
 class CustomUser(AbstractUser):
@@ -15,11 +15,11 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-class UserFile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    file = CloudinaryField('file')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+# class UserFile(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     file = CloudinaryField('file')
+#     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"File {self.id} uploaded by {self.user.username}"
+#     def __str__(self):
+#         return f"File {self.id} uploaded by {self.user.username}"
 
