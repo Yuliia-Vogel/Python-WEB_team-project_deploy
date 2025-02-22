@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2>Увійти до акаунта</h2>
-<form method="post" action="{% url 'login_page' %}">
+<form method="post" action="{% url 'users:login_page' %}">
     {% csrf_token %}
     <div class="mb-3">
         <label for="username" class="form-label">Ім'я користувача</label>
@@ -15,6 +15,6 @@
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
     <button type="submit" class="btn btn-primary">Увійти</button>
-    <a href="{% url 'password_reset_form' %}" class="btn btn-link">Забули пароль?</a>
+    <a href="{% url 'users:password_reset_form' %}" class="btn btn-link">Забули пароль?</a>
 </form>
 {% endblock %}

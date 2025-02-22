@@ -83,17 +83,17 @@ def password_reset_confirm_view(request, uidb64, token):
             user.set_password(new_password)
             user.save()
             messages.success(request, "Пароль успішно змінено!")
-            return redirect("password_reset_complete")
+            return redirect("users:password_reset_complete")
         else:
             messages.error(request, "Токен недійсний або користувача не знайдено.")
-            return redirect("password_reset_confirm", uidb64=uidb64, token=token)
+            return redirect("users:password_reset_confirm", uidb64=uidb64, token=token)
 
     return render(request, "password_reset_confirm.html")
 
 def logout_view(request):
     logout(request)
     messages.success(request, "Ви успішно вийшли з системи.")
-    return redirect("login_page")
+    return redirect("users:login_page")
 
 def password_reset_sent_view(request):
     return render(request, "password_reset_sent.html")
@@ -126,11 +126,11 @@ class RegisterView(generics.CreateAPIView):
             for msg in error_messages:
                 messages.error(request, msg)
             
-            return redirect('register_page')
+            return redirect('users:register_page')
 
         serializer.save()
         messages.success(request, "Ваш акаунт успішно створено! Увійдіть до системи, щоб скористатися функціоналом.")
-        return redirect("registration_success")
+        return redirect("users:registration_success")
 
 
 ### 🔹 ЛОГІН
@@ -202,7 +202,7 @@ class PasswordResetRequestView(APIView):
         )
 
         # Перенаправлення на сторінку з підтвердженням
-        return redirect("password_reset_sent")
+        return redirect("users:password_reset_sent")
 
 
 
