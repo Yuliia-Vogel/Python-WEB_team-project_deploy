@@ -1,41 +1,27 @@
-
-
 from django.conf import settings
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib import messages
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import update_last_login
-
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from .models import CustomUser
-from django.shortcuts import render, redirect
-from rest_framework import generics, status
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import RegisterSerializer, LoginSerializer
-from rest_framework.views import APIView
-from django.contrib.auth import get_user_model
-
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.utils.encoding import force_bytes, force_str
-
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.urls import reverse
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from rest_framework import generics, status, permissions, serializers
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import generics, status, permissions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework.views import APIView
 
-from .forms import UserFileForm
-from .models import UserFile, CustomUser
+# from .forms import UserFileForm
+# from .models import UserFile, CustomUser
+from .models import CustomUser
 from .serializers import RegisterSerializer, LoginSerializer
-from django.conf import settings
 
 
 User = get_user_model()
@@ -235,23 +221,23 @@ class PasswordResetConfirmView(APIView):
         return Response({"message": "Password has been reset successfully!"}, status=status.HTTP_200_OK)
 
 
-@login_required
-def upload_file(request):
-    if request.method == "POST":
-        form = UserFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            user_file = form.save(commit=False)
-            user_file.user = request.user  # Прив'язуємо файл до користувача
-            user_file.save()
-            return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
-    else:
-        form = UserFileForm()
+# @login_required
+# def upload_file(request):
+#     if request.method == "POST":
+#         form = UserFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             user_file = form.save(commit=False)
+#             user_file.user = request.user  # Прив'язуємо файл до користувача
+#             user_file.save()
+#             return redirect("users:file_list")  # Після завантаження переходимо до списку файлів
+#     else:
+#         form = UserFileForm()
 
-    return render(request, "users/upload_file.html", {"form": form})
+#     return render(request, "users/upload_file.html", {"form": form})
 
-@login_required
-def file_list(request):
-    files = UserFile.objects.filter(user=request.user)
-    return render(request, "users/file_list.html", {"files": files})
+# @login_required
+# def file_list(request):
+#     files = UserFile.objects.filter(user=request.user)
+#     return render(request, "users/file_list.html", {"files": files})
   
-#         return redirect("password_reset_complete")
+# #         return redirect("password_reset_complete")

@@ -17,6 +17,11 @@ fake = Faker()
 User = get_user_model()
 
 def create_fake_contacts(n=50):
+    users = list(User.objects.all())  # Отримуємо всіх користувачів
+    if not users: # якщо користувачів немає, то створюємо тестового
+        test_user = User.objects.create_user(username="testuser", password="password123")
+        users.append(test_user)
+
     for _ in range(n):
         Contact.objects.create(
             first_name=fake.first_name(),
@@ -24,7 +29,8 @@ def create_fake_contacts(n=50):
             address=fake.address(),
             phone=fake.phone_number()[:20],  # беремо лише 20 символів, якщо їх більше
             email=fake.email(),
-            birthday=fake.date_of_birth(minimum_age=18, maximum_age=80)
+            birthday=fake.date_of_birth(minimum_age=18, maximum_age=80),
+            user=random.choice(users)  # Прив’язуємо контакт до випадкового користувача
         )
     print(f"{n} fake contacts created!")
 
