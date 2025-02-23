@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-# from rest_framework import generics, permissions
 from django.contrib.auth.decorators import login_required
 from .forms import UploadFileForm
 from .models import UploadedFile
-# from .serializers import UploadedFile, File
 
 
 @login_required
