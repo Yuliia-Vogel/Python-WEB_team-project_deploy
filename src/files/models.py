@@ -33,7 +33,7 @@ class UploadedFile(models.Model):
 
                 # Створюємо унікальну папку для користувача
                 folder_name = f"user_{self.user.id}/{file_type}"
-                uploaded_data = cloudinary.uploader.upload(uploaded_file, folder=folder_name)
+                uploaded_data = cloudinary.uploader.upload(uploaded_file, folder=folder_name, resource_type='auto')
 
                 logger.info(f"Uploaded file for user {self.user.id} to folder {folder_name}")
 

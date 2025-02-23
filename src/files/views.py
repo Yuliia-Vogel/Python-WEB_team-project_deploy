@@ -12,10 +12,6 @@ def upload_file(request):
             uploaded_file = UploadedFile(user=request.user)
             uploaded_file.save(file=request.FILES['file'])  # Передаємо файл у `save()`
             return redirect('files:file_list')
-            # uploaded_file = form.save(commit=False)  # Не зберігаємо одразу
-            # uploaded_file.user = request.user  # Додаємо користувача вручну
-            # uploaded_file.save()  # Тепер зберігаємо
-            # return redirect('files:file_list')  # редірект на список файлів
     else:
         form = UploadFileForm()
     return render(request, 'assistant_app/upload_file.html', {'form': form})
