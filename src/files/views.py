@@ -1,5 +1,10 @@
-from django.shortcuts import render, redirect
+import requests
+
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
+
 from .forms import UploadFileForm
 from .models import UploadedFile
 
@@ -12,10 +17,6 @@ def upload_file(request):
             uploaded_file = UploadedFile(user=request.user)
             uploaded_file.save(file=request.FILES['file'])  # Передаємо файл у `save()`
             return redirect('files:file_list')
-            # uploaded_file = form.save(commit=False)  # Не зберігаємо одразу
-            # uploaded_file.user = request.user  # Додаємо користувача вручну
-            # uploaded_file.save()  # Тепер зберігаємо
-            # return redirect('files:file_list')  # редірект на список файлів
     else:
         form = UploadFileForm()
     return render(request, 'assistant_app/upload_file.html', {'form': form})
@@ -25,3 +26,22 @@ def upload_file(request):
 def file_list(request):
     files = UploadedFile.objects.filter(user=request.user)  # Фільтруємо тільки файли поточного юзера
     return render(request, 'assistant_app/file_list.html', {'files': files})
+
+
+@login_required
+def download_file(request, file_id):
+    # file = UploadedFile.objects.get(id=file_id, user=request.user)
+    # file_url = file.file_url
+    file = get_object_or_404(UploadedFile, id=file_id)
+    file_url = file.file_url
+
+    # Отримуємо файл з Cloudinary
+    response = requests.get(file_url, stream=True)
+    
+    if response.status_code == 200:
+        # Відповідь, що дозволяє завантажити файл
+        response = HttpResponse(response.content, content_type="application/octet-stream")
+        response['Content-Disposition'] = f'attachment; filename="{file_url.split("/")[-1]}"'
+        return response
+    else:
+        return HttpResponse("File not found", status=404)
