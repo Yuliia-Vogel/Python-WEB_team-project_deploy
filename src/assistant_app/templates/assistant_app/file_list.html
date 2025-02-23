@@ -10,6 +10,8 @@
         <a href="{{ file.file_url }}" target="_blank">{{ file.file_url|basename }}</a> (uploaded at {{ file.uploaded_at }})
         
         <a href="{% url 'files:download_file' file.id %}">Download file</a>
+
+        <a href="{{ file.file_url }}" target="_blank">{{ file.file_url}}</a>
       </li>
     {% empty %}
       <li>No files uploaded yet.</li>

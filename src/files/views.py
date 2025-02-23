@@ -22,16 +22,27 @@ def upload_file(request):
     return render(request, 'assistant_app/upload_file.html', {'form': form})
 
 
+# HEAD-запит до кожного файлу - для того, щоб перевіряти наявність файлів у реальному часі \/
+
 @login_required
 def file_list(request):
     files = UploadedFile.objects.filter(user=request.user)  # Фільтруємо тільки файли поточного юзера
-    return render(request, 'assistant_app/file_list.html', {'files': files})
+    # return render(request, 'assistant_app/file_list.html', {'files': files})
+    # files = request.user.files.all()  # Отримуємо файли з бази
+    valid_files = []
 
+    for file in files:
+        try:
+            response = requests.head(file.file_url, timeout=5)  # Швидкий HEAD-запит
+            if response.status_code == 200:
+                valid_files.append(file)
+        except requests.RequestException:
+            pass  # Файл не знайдено або інша помилка
+
+    return render(request, "assistant_app/file_list.html", {"files": valid_files})
 
 @login_required
 def download_file(request, file_id):
-    # file = UploadedFile.objects.get(id=file_id, user=request.user)
-    # file_url = file.file_url
     file = get_object_or_404(UploadedFile, id=file_id)
     file_url = file.file_url
 
