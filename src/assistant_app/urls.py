@@ -25,5 +25,6 @@ urlpatterns = [
     path("notes/", include("notes.urls", namespace="notes")),  # Підключаємо маршрути нотаток
     path("contacts/", include("contacts.urls", namespace="contacts")),  # 📌 Додаємо namespace
     path('users/', include("users.urls", namespace="users")),
+    path("news/", include("news.urls")), # Підлючаємо маршрут новин
     path("", home, name="home"),  # Головна сторінка
 ]
