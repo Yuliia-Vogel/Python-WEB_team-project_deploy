@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
+{% load custom_filters %}
+
 {% block content %}
   <h2>Your Uploaded Files</h2>
   <ul>
     {% for file in files %}
       <li>
-        <a href="{{ file.file_url }}" target="_blank">{{ file.file_url }}</a> (uploaded at {{ file.uploaded_at }})
+        <a href="{{ file.file_url }}" target="_blank">{{ file.file_url|basename }}</a> (uploaded at {{ file.uploaded_at }})
+        <a href="{{ file.file_url }}" download>Download file</a>
       </li>
     {% empty %}
       <li>No files uploaded yet.</li>
