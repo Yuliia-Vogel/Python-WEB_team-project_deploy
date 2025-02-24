@@ -1,11 +1,9 @@
-# import logging
 from django.db import models
 from django.contrib.auth import get_user_model
 import cloudinary
 import cloudinary.uploader
 import cloudinary.models
 
-# logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -32,15 +30,13 @@ class UploadedFile(models.Model):
                     file_type = 'others'
 
                 # Створюємо унікальну папку для користувача
-                folder_name = f"user_{self.user.id}/{file_type}"
+                folder_name = f"users_files/{self.user.email}/{file_type}"
                 uploaded_data = cloudinary.uploader.upload(uploaded_file, 
                                                            folder=folder_name, 
                                                            resource_type='auto', 
                                                            public_id=uploaded_file.name)
 
-                # logger.info(f"Uploaded file for user {self.user.id} to folder {folder_name}")
-
-                self.file_url = uploaded_data["secure_url"]  # Зберігаємо тільки URL
+                self.file_url = uploaded_data["secure_url"]  # Зберігаємо URL
 
         super().save(*args, **kwargs)
 

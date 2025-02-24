@@ -63,8 +63,21 @@ poetry run python src/utils/gen_fake_data.py
 Finally, to stop the server, go to terminal where server is running, and press Ctrl+C.
 The server will be stopped.
 
-
+______________________
 Work with FILES.
+______________________
+Usage Limits
+
+Maximum image file size - 10 MB
+Maximum video file size - 100 MB
+Maximum online image manipulation size - 100 MB
+Maximum raw file size - 10 MB
+Maximum image megapixels - 25 MP
+Maximum total number of megapixels in all frames - 50 MP
+--------------------------------------
+.exe file extension is forbidden.
+--------------------------------------
+
 
 
 
