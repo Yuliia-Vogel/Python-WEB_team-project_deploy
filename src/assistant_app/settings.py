@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'contacts',
     'notes',
     'users',
-    'files'
+    'news',
+    'files',
 ]
 
 MIDDLEWARE = [
