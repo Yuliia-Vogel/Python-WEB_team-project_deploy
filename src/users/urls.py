@@ -7,6 +7,8 @@ from .views import (
     password_reset_confirm_view, logout_view, password_reset_sent_view, password_reset_complete_view
 )
 
+app_name = "users"
+
 urlpatterns = [
     # API маршрути
     path("register/", RegisterView.as_view(), name="register"),

@@ -26,20 +26,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contacts:contact-list' %}">Contacts</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'files:file_list' %}">Files</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'news:news_summary' %}">News</a>
+                        </li>
                     {% endif %}
                 </ul>
-                <ul class="navbar-nav">
-<<<<<<< Updated upstream
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'notes:note-list' %}">Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'notes:tag-list' %}">Tags</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contacts:contact-list' %}">Contacts</a>
-                    </li>
-=======
+                <ul class="navbar-nav d-flex align-items-center">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <span class="navbar-text text-light me-3">
@@ -47,20 +42,19 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            <form method="post" action="{% url 'users:logout' %}" class="d-inline">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-light">Вийти</button>
                             </form>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="btn btn-outline-light me-2" href="{% url 'login_page' %}">Увійти</a>
+                            <a class="btn btn-outline-light me-2" href="{% url 'users:login_page' %}">Увійти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-outline-light me-2" href="{% url 'register_page' %}">Реєстрація</a>
+                            <a class="btn btn-outline-light me-2" href="{% url 'users:register_page' %}">Реєстрація</a>
                         </li>
                     {% endif %}
->>>>>>> Stashed changes
                 </ul>
             </div>
         </div>

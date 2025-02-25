@@ -4,10 +4,27 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # load environmental variables:
 load_dotenv()
 
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "your_cloud_name",
+    "API_KEY": "your_api_key",
+    "API_SECRET": "your_api_secret"
+}
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUD_NAME"),
+    api_key=os.getenv("API_KEY"),
+    api_secret=os.getenv("API_SECRET")
+)
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
@@ -29,9 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'assistant_app',
     'contacts',
     'notes',
     'users',
+    'news',
+    'files',
 ]
 
 MIDDLEWARE = [
@@ -126,9 +146,3 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
