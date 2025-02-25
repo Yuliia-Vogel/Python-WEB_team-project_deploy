@@ -43,6 +43,10 @@ poetry run python src/utils/gen_secret_key.py
 ```
 You'll receive your unique key, please add it as SECRET_KEY in the .env file.
 
+** You can use specially prepared Cloudinary account, please use credentials for Cloudinery which are in .env.example file (you need only clear the part "should_be_left_" and clear quotation marks).
+** In order to use your own Cloudinary account, you can register on https://cloudinary.com/ 
+Save your credentials (CLOUD_NAME, API_KEY and API_SECRET) and use it in the .env file.
+
 6) Apply migration of data to database:
 ```
 poetry run python src/manage.py migrate

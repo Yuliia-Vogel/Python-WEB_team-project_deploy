@@ -28,6 +28,12 @@
         {% endwith %}
 
         <a href="{% url 'files:download_file' file.id %}" class="btn btn-success">Download file</a>
+
+        <form action="{% url 'files:delete_file' file.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
+        
       </li>
     {% empty %}
       <li>No files uploaded yet.</li>
