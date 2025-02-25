@@ -163,25 +163,30 @@ class PasswordResetRequestView(APIView):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({"error": "User with this email does not exist."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Користувача з такою поштою не знайдено."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Генеруємо токен
+        # Генеруємо токен і посилання на відновлення пароля
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_link = f"http://127.0.0.1:8000/api/users/password-reset-confirm/{uid}/{token}/"
+        reset_link = request.build_absolute_uri(
+            reverse('users:password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+        )
 
-        # Надсилаємо email
+        # Відправка листа через SendGrid
         send_mail(
-            subject="Password Reset Request",
-            message=f"Click the link to reset your password: {reset_link}",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
+            'Password Reset',
+            f'Перейдіть за посиланням для відновлення пароля: {reset_link}',
+            settings.DEFAULT_FROM_EMAIL,
+            [email],  # Використовуй email з форми
             fail_silently=False,
         )
 
+<<<<<<< Updated upstream
         # Перенаправлення на сторінку з підтвердженням
         return redirect("password_reset_sent")
-
+=======
+        return redirect("users:password_reset_sent")
+>>>>>>> Stashed changes
 
 
 ### 🔹 ВІДНОВЛЕННЯ ПАРОЛЯ (ПІДТВЕРДЖЕННЯ)
