@@ -26,6 +26,7 @@ cloudinary.config(
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
@@ -49,7 +50,8 @@ INSTALLED_APPS = [
     'contacts',
     'notes',
     'users',
-    'files'
+    'news',
+    'files',
 ]
 
 MIDDLEWARE = [
@@ -110,15 +112,13 @@ REST_FRAMEWORK = {
     ),
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = "no-reply@example.com"
-
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")  # Зчитуємо з .env
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")  # Зчитуємо з .env
-DEFAULT_FROM_EMAIL = "no-reply@example.com"  # Адреса відправника (фіктивна для тестування)
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST="smtp.sendgrid.net"
+EMAIL_PORT="587"
+EMAIL_USE_TLS="True"
+EMAIL_HOST_USER="apikey"
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = "sumyultras88@gmail.com"
 
 
 # Якщо в майбутньому використовуватимеш REST API, можна додати:
@@ -146,4 +146,3 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

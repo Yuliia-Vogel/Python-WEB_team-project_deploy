@@ -29,7 +29,7 @@ class NoteListView(LoginRequiredMixin, ListView):
         context["tags"] = Tag.objects.all()
         context["search_query"] = self.request.GET.get("q", "")  # Передача пошуку в шаблон
         return context
-      
+
 # 📌 Детальний перегляд нотатки
 class NoteDetailView(LoginRequiredMixin, DetailView):
     model = Note
