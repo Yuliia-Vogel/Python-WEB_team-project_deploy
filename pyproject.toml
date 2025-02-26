@@ -18,6 +18,7 @@ djangorestframework = "^3.15.2"
 djangorestframework-simplejwt = "^5.4.0"
 faker = "^36.1.1"
 cloudinary = "^1.42.2"
+sendgrid = "^6.11.0"
 requests = "^2.32.3"
 
 [build-system]
