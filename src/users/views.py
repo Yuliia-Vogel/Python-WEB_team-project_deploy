@@ -73,8 +73,12 @@ def password_reset_request(request):
 
         # Відправка листа через SendGrid або SMTP
         send_mail(
-            'Password Reset',
-            f'Для відновлення пароля перейдіть за посиланням: {reset_link}',
+            'Відновлення пароля',
+            f'Вітаємо!\n\n'
+            f'Ви запросили відновлення пароля для вашого акаунта.\n'
+            f'Щоб скинути пароль, перейдіть за цим посиланням:\n{reset_link}\n\n'
+            f'Якщо ви не надсилали цей запит, просто проігноруйте цей лист.\n\n'
+            f'Дякуємо!',
             settings.DEFAULT_FROM_EMAIL,
             [email],
             fail_silently=False,
