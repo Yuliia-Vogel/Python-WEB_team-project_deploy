@@ -84,32 +84,34 @@ class FileDownloadTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-# class FileDeleteTest(TestCase):
+class FileDeleteTest(TestCase):
 
-#     def setUp(self):
-#         self.user = User.objects.create_user(username="testuser", password="password")
-#         self.client.login(username="testuser", password="password")
-#         self.file = File.objects.create(
-#             user=self.user, file_url="https://cloudinary.com/test_file", public_id="test123"
-#         )
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="password")
+        self.client.login(username="testuser", password="password")
+        self.file = UploadedFile.objects.create(
+            user=self.user, file_url="https://cloudinary.com/test_file", public_id="test123"
+        )
 
-#     @patch("cloudinary.uploader.destroy")
-#     def test_delete_existing_file(self, mock_destroy):
-#         """Тест видалення існуючого файлу"""
-#         mock_destroy.return_value = {"result": "ok"}
+    @patch("cloudinary.uploader.destroy")
+    def test_delete_existing_file(self, mock_destroy):
+        """Тест видалення існуючого файлу"""
+        mock_destroy.return_value = {"result": "ok"}
 
-#         url = reverse("files:delete", kwargs={"pk": self.file.pk})
-#         response = self.client.delete(url)
+        url = reverse("files:delete_file", kwargs={"file_id": self.file.id})
+        response = self.client.delete(url)
 
-#         self.assertEqual(response.status_code, 204)
-#         self.assertFalse(File.objects.filter(pk=self.file.pk).exists())
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(UploadedFile.objects.filter(id=self.file.id).exists())
 
-#     def test_delete_non_existing_file(self):
-#         """Тест видалення неіснуючого файлу"""
-#         url = reverse("files:delete", kwargs={"pk": 999})
-#         response = self.client.delete(url)
 
-#         self.assertEqual(response.status_code, 404)
+    # тут патч не потрібен, бо тут навіть не доходить до коннекту з клаудінері
+    def test_delete_non_existing_file(self): 
+        """Тест видалення неіснуючого файлу"""
+        url = reverse("files:delete_file", kwargs={"file_id": 999})
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, 404)
 
 
 # class FileFilteringTest(TestCase):

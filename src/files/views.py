@@ -174,10 +174,8 @@ def delete_file(request, file_id):
     file = get_object_or_404(UploadedFile, id=file_id, user=request.user)
 
     logger.info(f"Deleting: {file.public_id}")
-    # Видаляємо файл із клаудінері
-    # cloudinary.uploader.destroy(file.public_id)
 
-    # gросто видаляємо об'єкт, і `delete()` сам подбає про Cloudinary (бо ми перевизначили функцію видалення в класі UploadedFile)
+    # просто видаляємо об'єкт, і `delete()` сам подбає про Cloudinary (бо ми перевизначили функцію видалення в класі UploadedFile)
     file.delete()
 
     return render(request, 'assistant_app/file_deleted.html')
