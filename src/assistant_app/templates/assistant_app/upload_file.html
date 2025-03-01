@@ -9,4 +9,11 @@
         {{ form.as_p }}
         <button type="submit">Upload</button>
     </form>
+
+    {% if error %}
+        <div class="alert alert-warning">{{ error }}</div>
+    {% endif %}
+
 {% endblock %}
+
+

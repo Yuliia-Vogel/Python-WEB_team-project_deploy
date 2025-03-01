@@ -1,5 +1,7 @@
+import os
 import logging
 import requests
+from django.http import JsonResponse
 import cloudinary.uploader
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -15,6 +17,8 @@ CATEGORY_MAP = {
     "archives": ["zip", "rar", "7z", "tar", "gz"],
 }
 
+FORBIDDEN_EXTENSIONS = ['.exe']
+
 logger = logging.getLogger(__name__)
 
 def get_file_category(filename):
@@ -25,16 +29,36 @@ def get_file_category(filename):
     return "other"
 
 
+
 @login_required
 def upload_file(request):
-    if request.method == 'POST' and request.FILES['file']:
+    if request.method == 'POST':
+        if 'file' not in request.FILES:
+            return JsonResponse({"error": "File is required"}, status=400)
+
+        uploaded_file = request.FILES['file']
+        
+        # Перевірка на порожній файл
+        if uploaded_file.size == 0:
+            form = UploadFileForm()  # Повторно ініціалізуємо форму, щоб не було помилки при рендерингу
+            return render(request, 'assistant_app/upload_file.html', {
+                'form': form,
+                'error': "The file is empty."  # Передаємо повідомлення про помилку
+            })
+        
+        # Перевірка на заборонене розширення
+        file_name, file_extension = os.path.splitext(uploaded_file.name)
+        if file_extension.lower() in FORBIDDEN_EXTENSIONS:
+            form = UploadFileForm()  # Повторно ініціалізуємо форму
+            return render(request, 'assistant_app/upload_file.html', {
+                'form': form,
+                'error': "Exe files are not allowed to upload."  # Повідомлення про заборонений файл
+            })
+
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            uploaded_file = request.FILES['file']
             category = get_file_category(uploaded_file.name)
-
             folder_name = f"users_files/{request.user.email}/{category}"
-
             uploaded_data = cloudinary.uploader.upload(
                 uploaded_file,
                 folder=folder_name,
@@ -54,6 +78,7 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render(request, 'assistant_app/upload_file.html', {'form': form})
+
 
 @login_required
 def file_list(request):
