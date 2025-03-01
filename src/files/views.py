@@ -19,13 +19,6 @@ CATEGORY_MAP = {
 
 FORBIDDEN_EXTENSIONS = ['.exe']
 
-# Ліміти для різних типів файлів
-MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
-MAX_VIDEO_SIZE = 100 * 1024 * 1024  # 100 MB
-MAX_RAW_SIZE = 10 * 1024 * 1024  # 10 MB
-MAX_IMAGE_MEGA_PIXELS = 25  # 25 MP
-MAX_TOTAL_MEGA_PIXELS = 50  # 50 MP
-
 logger = logging.getLogger(__name__)
 
 def get_file_category(filename):
