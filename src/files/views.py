@@ -19,6 +19,13 @@ CATEGORY_MAP = {
 
 FORBIDDEN_EXTENSIONS = ['.exe']
 
+# Ліміти для різних типів файлів
+MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
+MAX_VIDEO_SIZE = 100 * 1024 * 1024  # 100 MB
+MAX_RAW_SIZE = 10 * 1024 * 1024  # 10 MB
+MAX_IMAGE_MEGA_PIXELS = 25  # 25 MP
+MAX_TOTAL_MEGA_PIXELS = 50  # 50 MP
+
 logger = logging.getLogger(__name__)
 
 def get_file_category(filename):
@@ -28,6 +35,27 @@ def get_file_category(filename):
             return category
     return "other"
 
+
+def check_file_size(uploaded_file):
+    # Ліміти для різних типів файлів
+    MAX_IMAGE_SIZE = 10 * 1024 * 1024  # 10 MB
+    MAX_VIDEO_SIZE = 100 * 1024 * 1024  # 100 MB
+    MAX_RAW_SIZE = 10 * 1024 * 1024  # 10 MB
+
+    file_name, file_extension = os.path.splitext(uploaded_file.name)
+
+    # Перевірка на розмір файлу для різних типів
+    if 'image' in uploaded_file.content_type:
+        if uploaded_file.size > MAX_IMAGE_SIZE:
+            return False, "Image file size too large. Maximum size is 10 MB."
+    elif 'video' in uploaded_file.content_type:
+        if uploaded_file.size > MAX_VIDEO_SIZE:
+            return False, "Video file size too large. Maximum size is 100 MB."
+    else:
+        if uploaded_file.size > MAX_RAW_SIZE:
+            return False, "Raw file size too large. Maximum size is 10 MB."
+
+    return True, None
 
 
 @login_required
@@ -46,6 +74,15 @@ def upload_file(request):
                 'error': "The file is empty."  # Передаємо повідомлення про помилку
             })
         
+        # Перевірка розміру файлу
+        is_valid, error_message = check_file_size(uploaded_file)
+        if not is_valid:
+            form = UploadFileForm()
+            return render(request, 'assistant_app/upload_file.html', {
+                'form': form,
+                'error': error_message
+            })
+
         # Перевірка на заборонене розширення
         file_name, file_extension = os.path.splitext(uploaded_file.name)
         if file_extension.lower() in FORBIDDEN_EXTENSIONS:
@@ -110,17 +147,33 @@ def file_list(request):
 def download_file(request, file_id):
     file = get_object_or_404(UploadedFile, id=file_id)
     file_url = file.file_url
+    logger.info(f"Attempting to download file with ID {file_id}, URL: {file_url}")
 
-    # Отримуємо файл з Cloudinary
-    response = requests.get(file_url, stream=True)
-    
-    if response.status_code == 200:
-        # Відповідь, що дозволяє завантажити файл
-        response = HttpResponse(response.content, content_type="application/octet-stream")
-        response['Content-Disposition'] = f'attachment; filename="{file_url.split("/")[-1]}"'
-        return response
-    else:
+    if not file_url:
+        logger.error(f"File URL not found for file ID {file_id}")
         return HttpResponse("File not found", status=404)
+
+    try:
+        # Виконуємо запит для отримання файлу з Cloudinary
+        response = requests.get(file_url, stream=True)
+        logger.info(f"Received response from Cloudinary with status code {response.status_code}")
+
+
+        # Якщо файл знайдений, відповідаємо з контентом
+        if response.status_code == 200:
+            logger.info(f"File found, preparing for download")
+            response = HttpResponse(response.content, content_type="application/octet-stream")
+            response['Content-Disposition'] = f'attachment; filename="{file_url.split("/")[-1]}"'
+            return response
+        else:
+            logger.error(f"Error from Cloudinary, status code: {response.status_code}")
+            # Якщо сервер Cloudinary повернув помилку (наприклад, 404 або інші), повертаємо помилку
+            return HttpResponse("File not found on Cloudinary", status=404)
+    
+    except requests.exceptions.RequestException as e:
+        # Якщо виникла помилка при виконанні запиту (наприклад, проблема з мережею)
+        logger.error(f"Error occurred while retrieving the file: {str(e)}")
+        return HttpResponse(f"Error occurred while retrieving the file: {str(e)}", status=503)
     
 
 @login_required
