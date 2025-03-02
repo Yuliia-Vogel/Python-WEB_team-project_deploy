@@ -20,6 +20,7 @@ II. Setup Steps
     Depending on your operating system, use the following commands to download the necessary files:
 
     4a. For Windows PowerShell:
+   
         ```
         # Download .env file
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example" -OutFile ".env"
@@ -31,6 +32,7 @@ II. Setup Steps
         ```
    
     4b. For Git Bash, WSL, or Linux/macOS:
+   
         ```
         # Download .env file
         curl -o .env https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example
@@ -42,6 +44,7 @@ II. Setup Steps
         ```
    
     4c. Alternatively, using wget:
+   
         ```
         # Download .env file
         wget -O .env https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example
