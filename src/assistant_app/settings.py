@@ -1,5 +1,5 @@
 import environ
-
+import sys
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+
+TESTING = "test" in sys.argv
 
 # load environmental variables:
 load_dotenv()
