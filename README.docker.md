@@ -1,12 +1,12 @@
 Docker Image for Personal Assistant Project
 -------------------------------------------
-==================
+
 I. Description
-==================
+==============
 This guide will walk you through setting up the Docker environment for the Personal Assistant web application. 
 It will use Docker to run PostgreSQL as the database for the application.
 
-===============
+
 II. Setup Steps
 ===============
 1) Install Docker Desktop: Download and install Docker Desktop from here: https://www.docker.com/ 
@@ -52,7 +52,7 @@ II. Setup Steps
     ```
 7) Access the Application: Once the container is running, you can access the Personal Assistant application by navigating to http://localhost:8000/ in your web browser.
 
-========================
+
 III. System Requirements
 ========================
     * Docker Desktop (download and install here).
