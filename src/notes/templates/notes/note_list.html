@@ -1,43 +1,59 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Notes - Personal Assistant{% endblock%} {% block content %}
+<section>
+  <!-- Search Bar -->
+  <form
+    class="note-search"
+    role="search"
+    method="GET"
+    action="{% url 'notes:note-list' %}"
+  >
+    <input name="q" type="search" placeholder="Шукати нотатки ({{ notes|length }})" value="{{ search_query }}"/>
+    <input type="submit" value="Пошук" />
+  </form>
 
-{% block title %}Notes - Personal Assistant{% endblock %}
+  <!-- Add New Note Button -->
+  <div class="note-filter-container">
+  <!-- Add New Note Button -->
+  <div class="note_btn_container">
+    <a href="{% url 'notes:note-create' %}" role="button">Додати нотатку</a>
+  </div>
 
-{% block content %}
-  <section>
-    <h2>Notes</h2>
+  <!-- Tag Filter Form -->
+  <form style="gap: 10px;" method="GET" action="{% url 'notes:note-list' %}" class="tag-filter-form">
+    <select name="tag" id="tag" onchange="this.form.submit()">
+      {% for tag in tags %}
+      <option value="{{ tag.id }}" {% if request.GET.tag == tag.id|stringformat:"s" %}selected{% endif %}>{{ tag.name }}</option>
+      {% endfor %}
+    </select>
+    <button
+      class="secondary"
+      type="button"
+      onclick="document.getElementById('tag').value=''; this.form.submit();"
+    >
+      Скинути
+    </button>
+  </form>
+</div>
 
-    <!-- Search Bar -->
-    <form class="contact-search" role="search" method="get" action="{% url 'notes:note-list' %}">
-      <input name="q" type="search" placeholder="Search notes..." />
-      <input type="submit" value="Search" />
-    </form>
-
-    <!-- Add New Note Button -->
-    <div class="note_btn_container" style="">
-      <a href="{% url 'notes:note-create' %}" role="button">
-        Add New Note
-      </a>
-    </div>
-
-    <!-- List of Notes -->
-    <div class="notes-list">
-      {% if notes %}
-        <ul>
-          {% for note in notes %}
-            <li>
-              <article>
-                <h3>
-                  <a href="{% url 'notes:note-detail' note.id %}">{{ note.title }}</a>
-                </h3>
-                <p>{{ note.content|truncatewords:20 }}</p>
-                <small>Created on: {{ note.created_at|date:"F j, Y" }}</small>
-              </article>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No notes found.</p>
-      {% endif %}
-    </div>
-  </section>
+  <!-- List of Notes -->
+  <div class="notes-list">
+    {% if notes %}
+    <ul>
+      {% for note in notes %}
+      <li>
+        <article>
+          <h3>
+            <a href="{% url 'notes:note-detail' note.id %}">{{ note.title }}</a>
+          </h3>
+          <p>{{ note.content|truncatewords:20 }}</p>
+          <small>Created on: {{ note.created_at|date:"F j, Y" }}</small>
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No notes found.</p>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}

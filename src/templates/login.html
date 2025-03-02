@@ -4,23 +4,23 @@
 
 {% block content %}
   <section>
-    <h2>Login</h2>
+    <h2>Логін</h2>
     <form method="post" action="{% url 'users:login_page' %}">
       {% csrf_token %}
       <div>
-        <label for="username">Username:</label>
+        <label for="username">Нікнейм:</label>
         <input type="text" id="username" name="username" required>
       </div>
       <div>
-        <label for="password">Password:</label>
+        <label for="password">Пароль:</label>
         <input type="password" id="password" name="password" required>
       </div>
       <div>
-        <button type="submit" class="contrast">Login</button>
+        <button type="submit" class="contrast">Логін</button>
       </div>
     </form>
     <p>
-      Don't have an account? <a href="{% url 'users:register_page' %}">Register here</a>.
+      Немає акаунту? <a href="{% url 'users:register_page' %}">Реєструйтеся тут</a>.
     </p>
   </section>
 {% endblock %}
