@@ -23,7 +23,8 @@ II. Setup Steps
         ```
         # Download .env file
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example" -OutFile ".env"
-
+        ```
+       ```
         # Download docker-compose.yml file
         Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/docker-compose.yml" -OutFile "docker-compose.yml"
         ```
@@ -31,7 +32,8 @@ II. Setup Steps
         ```
         # Download .env file
         curl -o .env https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example
-
+        ```
+       ```
         # Download docker-compose.yml file
         curl -o docker-compose.yml https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/docker-compose.yml
         ```
@@ -39,18 +41,19 @@ II. Setup Steps
         ```
         # Download .env file
         wget -O .env https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/.env.example
-
+        ```
+        ```
         # Download docker-compose.yml file
         wget -O docker-compose.yml https://raw.githubusercontent.com/Yuliia-Vogel/Python-WEB_team-project2/refs/heads/main/docker_make_container/docker-compose.yml
         ```
-5) Edit the .env file: Open the .env file and adjust the values based on your desired configuration (e.g., database settings, Cloudinary credentials, - follow the instructions inside the generated .env file).
+6) Edit the .env file: Open the .env file and adjust the values based on your desired configuration (e.g., database settings, Cloudinary credentials, - follow the instructions inside the generated .env file).
 
-6) Pull the Docker Image and Start the Container: Run the following commands to pull the image and start the container:
+7) Pull the Docker Image and Start the Container: Run the following commands to pull the image and start the container:
     ```
     docker pull kyrylodolia/personal_assistant:latest
     docker-compose up
     ```
-7) Access the Application: Once the container is running, you can access the Personal Assistant application by navigating to http://localhost:8000/ in your web browser.
+8) Access the Application: Once the container is running, you can access the Personal Assistant application by navigating to http://localhost:8000/ in your web browser.
 
 
 III. System Requirements
