@@ -99,7 +99,7 @@ II. App installation
     Maximum image megapixels - 25 MP
     Maximum total number of megapixels in all frames - 50 MP
     --------------------------------------
-    .exe file extension is forbidden.
+    .exe and .bat file extensions are forbidden.
     --------------------------------------
 
 16) If you need some info for demo, you can create 50 fake contacts and 50 fake notes using Faker package.
