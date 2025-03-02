@@ -1,6 +1,6 @@
 # Python-WEB_team-project2
 The final team project for Python WEB at GO.IT school
-==================
+
 I. App description
 ==================
     This web-based Personal Assistant application is designed to help you stay organized by providing the following features:
@@ -10,7 +10,7 @@ I. App description
         * A news feed covering sports, Ukrainian politics, currency exchange rates, and weather updates
     Access to all features requires registration to ensure the security and privacy of your data. 
     Each user can access only their own personal data, which remains unavailable to other users and unauthorized individuals.
-====================
+
 II. App installation
 ====================
 1) Open your VSCode or PyCharm and clone this repository.
@@ -63,9 +63,9 @@ II. App installation
 7) Create .env file 
     1. In the root folder, create a .env file. You can use the .env.example file as a reference.
     2. To generate a SECRET_KEY, run the following command:
-        '''
+        ```
         poetry run python src/utils/gen_secret_key.py
-        '''
+        ```
         This will generate a unique key. Add it as SECRET_KEY in your .env file.
     
     3. Cloudinary Configuration:
@@ -111,7 +111,7 @@ First, register at least one user, and then run the command:
 17) Finally, to stop the Personal Assistant, go to the terminal where server is running, and press Ctrl+C.
 The server will be stopped. All your data (user account, your contacts, notes, tags and files will be saved.)
 
-========================
+
 III. System Requirements
 ========================
     Operating System: Windows, macOS, or Linux
@@ -120,31 +120,31 @@ III. System Requirements
     Database: PostgreSQL (for creation in Docker)
     Additional Requirements: Docker (for running PostgreSQL in a container)
 
-====================
+
 IV. Running Tests ()
 ====================
     To run all tests:
-        '''
+        ```
         python src/manage.py test
-        ''' 
+        ``` 
     --------------------------------
     To run tests for a specific app:
-        '''
+        ```
         python src/manage.py test files 
-        '''
+        ```
         (Replace "files" with the name of the required app: contacts, files, news, notes, users)
     -----------------------------
     To run a specific test class:
-        '''
+        ```
         python src/manage.py test files.tests.FileUploadTest
-        '''
+        ```
         (Replace "files" with the name of the required app: contacts, files, news, notes, users; 
         and replace "FileUploadTest" with the name of the required test class)
     ------------------------
     To run a specific test::
-        '''
+        ```
         python src/manage.py test files.tests.FileUploadTest.test_upload_file_success
-        '''
+        ```
         (Replace "files" with the name of the required app: contacts, files, news, notes, users; 
         and replace "FileUploadTest" with the name of the required test class,
         and replace "test_upload_file_success" with the name of the test)
