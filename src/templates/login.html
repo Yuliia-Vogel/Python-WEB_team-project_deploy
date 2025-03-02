@@ -1,20 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Увійти{% endblock %}
+{% block title %}Login - Personal Assistant{% endblock %}
 
 {% block content %}
-<h2>Увійти до акаунта</h2>
-<form method="post" action="{% url 'users:login_page' %}">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label for="username" class="form-label">Ім'я користувача</label>
-        <input type="text" class="form-control" id="username" name="username" required>
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Пароль</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Увійти</button>
-    <a href="{% url 'users:password_reset_form' %}" class="btn btn-link">Забули пароль?</a>
-</form>
+  <section>
+    <h2>Login</h2>
+    <form method="post" action="{% url 'users:login_page' %}">
+      {% csrf_token %}
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div>
+        <button type="submit" class="contrast">Login</button>
+      </div>
+    </form>
+    <p>
+      Don't have an account? <a href="{% url 'users:register_page' %}">Register here</a>.
+    </p>
+  </section>
 {% endblock %}
