@@ -1,5 +1,8 @@
-# Python-WEB_team-project2
+# Python-WEB_team-project Instruction
 The final team project for Python WEB at GO.IT school
+
+## Docker Instructions
+For detailed instructions on using Docker, refer to [README.docker.md](README.docker.md).
 
 I. App description
 ==================
