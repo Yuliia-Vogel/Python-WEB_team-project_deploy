@@ -17,28 +17,38 @@
   </div>
 
 <div class="file-add-btn">
-  <a role="button" href="{% url 'files:upload_file' %}" class="">Upload new file</a>
+  <a role="button" href="{% url 'files:upload_file' %}" class="">Upload new file</a>  
 </div>
   
   
   <div class="file-list-container">
     <ul>
       {% for file in files %}
-        <li>
-          <a href="{{ file.file_url }}" target="_blank">{{ file.file_url|basename }}</a> (uploaded at {{ file.uploaded_at }})
+      <li>
+          <article class="file-card">
+              <div class="file-link-container">
+                <span>{{ file.file_url|file_emoji }}</span>
+                <span class="file-extension">{{ file.file_url|lower|slice:'-3:'|upper }}</span>
+                <a href="{{ file.file_url }}" target="_blank">{{ file.file_url|basename|truncatechars:15 }}</a>
+              </div>
+              <div class="file-btn-container">
+                  {% with file_extension=file.file_url|lower|slice:'-3:' %}
+                      {% if file_extension in "pdf txt jpg jpeg png gif svg webp mp4 webm ogg mp3 wav" %}
+                          <a role="button" href="{{ file.file_url }}" target="_blank" class="">Огляд</a>
+                      {% endif %}
+                  {% endwith %}
+
+                  <a role="button" href="{% url 'files:download_file' file.id %}" class="">Завантажити</a>
+                  <form action="{% url 'files:delete_file' file.id %}" method="post" >
+                    {% csrf_token %}
+                    <button class="file-del-btn" type="submit" class="" onclick="return confirm('Ви впевнені?')">Видалити</button>
+                  </form>
+              </div>
+          </article>
+
   
-          {% with file_extension=file.file_url|lower|slice:'-3:' %}
-            {% if file_extension in "pdf txt jpg jpeg png gif svg webp mp4 webm ogg mp3 wav" %}
-              <a href="{{ file.file_url }}" target="_blank" class="btn btn-secondary">View</a>
-            {% endif %}
-          {% endwith %}
   
-          <a href="{% url 'files:download_file' file.id %}" class="">Download file</a>
   
-          <form action="{% url 'files:delete_file' file.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="" onclick="return confirm('Are you sure?')">Delete</button>
-          </form>
           
         </li>
         {% empty %}

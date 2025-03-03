@@ -70,13 +70,13 @@
 
       ul,
       ol {
-        list-style: none; /* Remove list styling */
-        padding-left: 0; /* Remove default padding */
+        list-style: none;
+        padding-left: 0; 
       }
 
       ul li,
       ol li {
-        list-style: none; /* Ensure list items have no styling */
+        list-style: none;
       }
 
       .note-filter-container {
@@ -135,7 +135,7 @@
     }
 
     table td {
-      transition: outline 0.5s ease; /* Smooth transition for outline */
+      transition: outline 0.5s ease;
     }
 
     table td:hover {
@@ -164,6 +164,7 @@
     .file-list-container {
       display: flex;
       justify-content: center;
+      margin-top: 34px;
     }
 
     .file-add-btn {
@@ -171,6 +172,49 @@
       justify-content: center;
       margin-bottom: 24px;
     }
+
+    .file-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 950px;
+    }
+
+    .file-link-container {
+      display: flex;
+      gap: 24px;
+      width: 60%;
+    }
+
+    .file-btn-container {
+      display: flex;
+      gap: 8px;
+    }
+
+    .file-del-btn {
+      margin: 0;
+      background-color: #AF291D;
+      border: none;
+    }
+
+    .file-del-btn:hover {
+      background-color: #C52F21;
+    }
+
+    .upload-file-title {
+      margin-bottom: 56px;
+    }
+
+    .upload-card {
+      display: flex; 
+      width: 950px; 
+      justify-self: center;
+    }
+
+    .file-alert-msg {
+      margin-top: 24px;
+    }
+
 
     </style>
   </head>
