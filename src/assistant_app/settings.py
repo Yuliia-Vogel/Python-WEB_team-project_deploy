@@ -1,5 +1,5 @@
 import environ
-
+import sys
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+
+TESTING = "test" in sys.argv
 
 # load environmental variables:
 load_dotenv()
@@ -146,3 +149,27 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'files': {  # Це простір імен для логера у додатку files
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
