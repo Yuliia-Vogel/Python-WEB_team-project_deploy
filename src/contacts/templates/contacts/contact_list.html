@@ -8,7 +8,7 @@
     action="{% url 'contacts:contact-list' %}">
 
     <div role="group" class="form-group">
-    <input name="q" type="search" placeholder="Шукати контакти ({{ contacts|length }})" value="{{ request.GET.query }}"/>
+    <input name="query" type="search" placeholder="Шукати контакти ({{ contacts|length }})" value="{{ request.GET.query }}"/>
     
     <input
     type="number"
@@ -28,6 +28,12 @@
 <div class="contact-btn-container">
     <a role="button" href="{% url 'contacts:contact-create' %}" class="contact-add-btn">Додати контакт</a>
 </div>
+
+{% if request.GET.days_ahead %}
+<div style="display:flex; margin-bottom: 24px; justify-self: center;">
+  Показано контакти з днями народження через {{ request.GET.days_ahead }} днів.
+</div>
+{% endif %}
 
 <table>
   <thead>
@@ -57,10 +63,5 @@
   </tbody>
 </table>
 
+ {% endblock %}
 
-<!-- Display Filter Message -->
-{% if request.GET.days_ahead %}
-<div class="alert alert-info mt-3">
-  Показано контакти з днями народження через {{ request.GET.days_ahead }} днів.
-</div>
-{% endif %} {% endblock %}
