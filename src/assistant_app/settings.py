@@ -39,7 +39,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["python-webteam-projectdeploy-production.up.railway.app"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
