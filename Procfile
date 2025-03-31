@@ -1,0 +1,1 @@
+web: gunicorn assistant_app.wsgi --log-file -
