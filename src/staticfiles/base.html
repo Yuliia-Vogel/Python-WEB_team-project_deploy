@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Personal Assistant{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.jade.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Підключення файлу стилів -->
+    
+  </head>
+  <body style="min-height: 1071px">
+    <header class="is-fixed-above-lg is-fixed">
+      <div class="container">
+        <a class="header-title" href="/"><h1>Personal Assistant</h1></a>
+        <nav>
+          <ul>
+            {% if user.is_authenticated %}
+            <li>
+              <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="auth_btn contrast outline">Вийти</button>
+              </form>
+            </li>
+            {% else %}
+            <li>
+              <a class="contrast" href="{% url 'users:login_page' %}">Увійти</a>
+            </li>
+            <li>
+              <a class="contrast" href="{% url 'users:register_page' %}"
+                >Реєстрація</a
+              >
+            </li>
+            {% endif %}
+            <li>
+              <button class="outline contrast" onclick="toggleTheme()">
+                <div style="width: 24px; height: 24px">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-lamp-desk"
+                  >
+                    <path d="m14 5-3 3 2 7 8-8-7-2Z"></path>
+                    <path d="m14 5-3 3-3-3 3-3 3 3Z"></path>
+                    <path d="M9.5 6.5 4 12l3 6"></path>
+                    <path
+                      d="M3 22v-2c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2H3Z"
+                    ></path>
+                  </svg>
+                </div>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container has-table-of-contents page-classless">
+      <aside>
+        <nav>
+          <ul>
+            {% if user.is_authenticated %}
+            <li>
+              <a class="secondary" href="{% url 'news:news_summary' %}">📰 Новини</a>
+            </li>
+            <li>
+              <a class="secondary" href="{% url 'notes:note-list' %}">📝 Нотатки</a>
+            </li>
+            <li>
+              <a class="secondary" href="{% url 'notes:tag-list' %}">🏷️ Теги</a>
+            </li>
+            <li>
+              <a class="secondary" href="{% url 'contacts:contact-list' %}"
+                >📇 Контакти</a
+              >
+            </li>
+            <li>
+              <a class="secondary" href="{% url 'files:file_list' %}">📂 Файли</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </aside>
+      <div class="main-content-container">
+        
+          {% block content %}{% endblock %}
+        
+      </div>
+    </main>
+  </body>
+
+  <script defer>
+    function toggleTheme() {
+      const root = document.documentElement;
+      const currentTheme = root.getAttribute("data-theme");
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+
+      root.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    });
+  </script>
+</html>

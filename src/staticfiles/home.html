@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 style="display: flex; justify-self: center;">Ласкаво просимо до Personal Assistant!</h2>
+  {% if user.is_authenticated %}
+      <p style="display: flex; justify-self: center;">Оберіть функцію у меню.</p>
+  {% endif %}
+{% endblock %}
