@@ -58,13 +58,13 @@ def password_reset_request(request):
         email = request.POST.get("email")
 
         if not email:
-            messages.error(request, "Будь ласка, введіть електронну пошту.")
+            messages.error(request, "Будь ласка, введіть електронну пошту.") # цей текст не виводиться, випадає англ.
             return redirect("users:password_reset_form")
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, "Користувача з такою поштою не знайдено.")
+            messages.error(request, "Користувача з такою поштою не знайдено.") #працює
             return redirect("users:password_reset_form")
 
         # Генеруємо токен і посилання на відновлення пароля
