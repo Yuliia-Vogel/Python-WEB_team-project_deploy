@@ -169,12 +169,18 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
         'files': {  # Це простір імен для логера у додатку files
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
+        'django.security.DisallowedHost': {
+            'handlers': ['file_disallowed'],
+            'propagate': False,
+            'level': 'ERROR',
+        },
     },
 }
+
