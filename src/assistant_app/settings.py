@@ -15,7 +15,7 @@ TESTING = "test" in sys.argv
 # load environmental variables:
 load_dotenv()
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 print(f"DEBUG: ALLOWED_HOSTS = {ALLOWED_HOSTS}")
 
 CLOUDINARY_STORAGE = {
