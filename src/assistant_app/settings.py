@@ -8,13 +8,19 @@ from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from django.http import JsonResponse # для дебагу
 
+
+def debug_allowed_hosts(request): # для дебагу
+    return JsonResponse({"ALLOWED_HOSTS": ALLOWED_HOSTS}) 
 
 TESTING = "test" in sys.argv
 
 # load environmental variables:
 load_dotenv()
 
+ALLOWED_HOSTS = ["*"]
+print(f"DEBUG: ALLOWED_HOSTS = {ALLOWED_HOSTS}")
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "your_cloud_name",
@@ -38,9 +44,6 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
-print(f"DEBUG: ALLOWED_HOSTS = {ALLOWED_HOSTS}")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
