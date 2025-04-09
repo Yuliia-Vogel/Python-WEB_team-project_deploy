@@ -8,11 +8,7 @@ from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from django.http import JsonResponse # для дебагу
 
-
-def debug_allowed_hosts(request): # для дебагу
-    return JsonResponse({"ALLOWED_HOSTS": ALLOWED_HOSTS}) 
 
 TESTING = "test" in sys.argv
 
