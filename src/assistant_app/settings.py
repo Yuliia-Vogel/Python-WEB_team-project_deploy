@@ -15,8 +15,10 @@ TESTING = "test" in sys.argv
 # load environmental variables:
 load_dotenv()
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = ["python-webteam-projectdeploy-production.up.railway.app"]
 print(f"DEBUG: ALLOWED_HOSTS = {ALLOWED_HOSTS}")
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "your_cloud_name",
