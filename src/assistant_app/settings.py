@@ -39,7 +39,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 INSTALLED_APPS = [
     'django.contrib.admin',
