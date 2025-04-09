@@ -15,8 +15,8 @@ TESTING = "test" in sys.argv
 # load environmental variables:
 load_dotenv()
 
-# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
-ALLOWED_HOSTS = ["0.0.0.0.", "python-webteam-projectdeploy-production.up.railway.app"]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+# ALLOWED_HOSTS = ["0.0.0.0.", "python-webteam-projectdeploy-production.up.railway.app"]
 print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
 
 CLOUDINARY_STORAGE = {
@@ -156,31 +156,31 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#         'files': {  # Це простір імен для логера у додатку files
-#             'handlers': ['console'],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#         'django.security.DisallowedHost': {
-#             'handlers': ['file_disallowed'],
-#             'propagate': False,
-#             'level': 'ERROR',
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'files': {  # Це простір імен для логера у додатку files
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.security.DisallowedHost': {
+            'handlers': ['file_disallowed'],
+            'propagate': False,
+            'level': 'ERROR',
+        },
+    },
+}
 
