@@ -19,5 +19,5 @@ urlpatterns = [
     path("news/", include("news.urls")), # Підлючаємо маршрут новин
     path('files/', include('files.urls', namespace="files")), # Підключаємо маршрути для файлів
     path("", home, name="home"),  # Головна сторінка
-    path("debug-allowed-hosts/", debug_allowed_hosts),
+    path("debug-allowed-hosts/", lambda request: JsonResponse({"allowed_hosts": settings.ALLOWED_HOSTS})),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
