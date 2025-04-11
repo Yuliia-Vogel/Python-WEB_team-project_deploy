@@ -177,7 +177,7 @@ LOGGING = {
             'propagate': False,
         },
         'django.security.DisallowedHost': {
-            'handlers': ['file_disallowed'],
+            'handlers': ['console'],
             'propagate': False,
             'level': 'ERROR',
         },
