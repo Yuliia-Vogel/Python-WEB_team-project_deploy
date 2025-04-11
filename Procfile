@@ -1,1 +1,1 @@
-web: gunicorn assistant_app.wsgi --log-file -
+web: gunicorn assistant_app.wsgi --chdir src --log-file -
