@@ -2,10 +2,10 @@
 
 {% block content %}
     <h2>{{ contact.first_name }} {{ contact.last_name }}</h2>
-    <p>Phone number: {{ contact.phone }}</p>
-    <p>Email: {{ contact.email }}</p>
-    <p>Address: {{ contact.address }}</p>
-    <p>Birthday: {{ contact.birthday }}</p>
+    <p>Номер телефону: {{ contact.phone }}</p>
+    <p>Ел.пошта: {{ contact.email }}</p>
+    <p>Адреса: {{ contact.address }}</p>
+    <p>День народження: {{ contact.birthday }}</p>
     <div class="contact-details-btns">
         <a role="button" href="{% url 'contacts:contact-update' contact.pk %}">Редагувати</a>
         <a class="contact-del-btn" role="button" href="{% url 'contacts:contact-delete' contact.pk %}">Видалити</a>

@@ -20,8 +20,6 @@ from rest_framework import generics, status, permissions, serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-# from .forms import UserFileForm
-# from .models import UserFile, CustomUser
 from .models import CustomUser
 from .serializers import RegisterSerializer, LoginSerializer
 
