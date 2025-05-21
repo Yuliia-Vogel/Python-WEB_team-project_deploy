@@ -237,3 +237,4 @@ class ContactViewsTest(TestCase):
         self.assertContains(response, self.contact1.first_name)
         self.assertContains(response, self.contact2.first_name)
 
+# comment for re-deploy on Railway
